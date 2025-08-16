@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zara A.i</title>
+  <link rel="shortcut icon" href="/frontend/assets/img/logo.ico" type="image/x-icon" />
+
+  <!-- Bootsrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- Bootsrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+  <!-- Particle js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="zara.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+</head>
+
+<body>
+  <script type="text/javascript">
+    eel.expose(stopListening);
+  </script>
+
+  <div class="container">
+    <section id="Start">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="d-flex justify-content-center align-items-center" style="height: 80vh">
+            <div>
+              <div id="Loader" class="svg-frame mb-4">>
+                <section id="Oval" class="mb-4">
+                  <div id="live-text" class="ai-output" class="ai-reply" class="typewriter" data-text=ai-reply></div>
+                </section>
+
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 80vh">
+                      <canvas id="canvasOne" width="700" height="820"></canvas>
+
+                      <div id="JavisHood">
+                        <div class="square">
+                          <span class="circle"></span>
+                          <span class="circle"></span>
+                          <span class="circle"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <h5 class="typewriter" data-text="I'm ZARA AI created by Alfaz Azmi" style="margin-left: 830px;color: aqua; margin-top: 40px;"></h5>
+                    <h5 class="typewriter" data-text="Ask me Anything" style="margin-left: 900px; color:aliceblue" ></h5>
+
+
+
+                    <div class="mt-4 pt-4" style="width: 800px; margin-left: 600px;">
+                      <div>
+                        <div id="TextInput" class="d-flex" style="margin-left: 100px;">
+                          <textarea id="chatbox" name="chatbox" placeholder="Ask me anything..." class="input-field"
+                            style="height:150px; width:100%; resize:none; padding-top:30px; box-sizing:border-box; line-height:1.5; font-size:16px; overflow-y:hidden;"></textarea>
+
+                          <button id="MicBtn" onclick="startListening()" class="glow-on-hover">
+                            <i class="bi bi-mic"></i>
+                          </button>
+                          <button id="ChatBtn" class="glow-on-hover" style="margin-left: 10px;">
+                            <i class="bi bi-send-fill" onclick="sendToAI()"></i>
+                          </button>
+                          <button id="SettingBtn" class="glow-on-hover">
+                            <i class="bi bi-gear-wide-connected"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <script>
+                  let wave = null;
+
+                  function startListening() {
+                    // Python में voice mode शुरू करो
+                    eel.start_voice_mode();
+
+                    // SiriWave को दिखाओ
+                    document.getElementById("SiriWave").removeAttribute("hidden");
+
+                    // SiriWave एनिमेशन चालू करो
+                    if (!wave) {
+                      wave = new SiriWave({
+                        container: document.getElementById("siri-container"),
+                        width: 600,
+                        height: 200,
+                        style: "ios",
+                        speed: 0.2,
+                        amplitude: 1,
+                        autostart: true,
+                      });
+                    } else {
+                      wave.start(); // अगर पहले से है तो स्टार्ट करो
+                    }
+                  }
+                </script>
+                <script>
+                  function stopListening() {
+                    document.getElementById("SiriWave").setAttribute("hidden", true);
+                    if (wave) {
+                      wave.stop();
+                    }
+                  }
+                </script>
+                <script>
+                  const elements = document.querySelectorAll('.typewriter');
+
+                  elements.forEach((el) => {
+                    const text = el.getAttribute('data-text');
+                    let index = 0;
+
+                    function type() {
+                      if (index < text.length) {
+                        el.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, 100);
+                      } else {
+                        // Pause before repeating
+                        setTimeout(() => {
+                          el.textContent = '';
+                          index = 0;
+                          type();
+                        }, 2000);
+                      }
+                    }
+
+                    type(); // Start animation
+                  });
+                </script>
+
+
+
+
+
+    </section>
+
+    <div id="SiriWave" class="mb-4" hidden>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+              <div class="">
+                <p class="text-start text-light mb-4 siri-message">
+                  Hello, I am Your Assistant
+                </p>
+                <div id="siri-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+
+  <!--Jquery  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- Particle js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script src="zara.js"></script>
+
+  <!-- Siri wave -->
+  <script src="https://unpkg.com/siriwave/dist/siriwave.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/siriwave/dist/siriwave.min.js"></script>
+
+  <!-- Texllate js -->
+  <script src="assets/vendore/texllate/jquery.fittext.js"></script>
+  <script src="assets/vendore/texllate/jquery.lettering.js"></script>
+  <script src="http://jschr.github.io/textillate/jquery.textillate.js"></script>
+
+  <!-- lottie files -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+  <script src="main.js"></script>
+  <script type="text/javascript" src="/eel.js"></script>
+  <script src="controller.js"></script>
+
+</body>
+
+</html>
